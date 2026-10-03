@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Cosmic Codex</title>
+    <meta name="description" content="A cinematic voyage through the laws that govern reality — and what they might teach us about being human." />
+    <meta name="theme-color" content="#050506" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23050506'/%3E%3Ccircle cx='32' cy='32' r='22' fill='none' stroke='%23c9a35f' stroke-width='1.5'/%3E%3Cellipse cx='32' cy='32' rx='28' ry='10' fill='none' stroke='%23c9a35f' stroke-width='1' transform='rotate(-20 32 32)'/%3E%3Ccircle cx='32' cy='32' r='3' fill='%23efe6d2'/%3E%3C/svg%3E" />
+  </head>
+  <body class="is-landing">
+    <!-- ═════════ THE UNIVERSE ═════════ -->
+    <canvas id="cosmos" aria-hidden="true"></canvas>
+    <div id="imagery" aria-hidden="true"><img alt="" decoding="async" /></div>
+    <div id="vignette" aria-hidden="true"></div>
+    <div id="grain" aria-hidden="true"></div>
+    <div id="warp-point" aria-hidden="true"></div>
+    <div id="flash" aria-hidden="true"></div>
+    <svg id="quantum-branches" aria-hidden="true" viewBox="-50 -50 100 100" preserveAspectRatio="xMidYMid slice"></svg>
+
+    <!-- ═════════ LANDING ═════════ -->
+    <section id="landing" aria-labelledby="landing-title">
+      <svg class="landing-lines" viewBox="-600 -600 1200 1200" aria-hidden="true">
+        <circle r="560" /><circle r="430" /><circle r="300" class="dash" />
+        <ellipse rx="580" ry="170" transform="rotate(-18)" />
+        <ellipse rx="520" ry="300" transform="rotate(32)" class="dash" />
+        <line x1="0" y1="-590" x2="0" y2="590" /><line x1="-590" y1="0" x2="590" y2="0" />
+        <g class="ticks"></g>
+      </svg>
+      <div class="landing-inner">
+        <p class="micro reveal" style="--d: 0.4s">An observatory at the edge of everything</p>
+        <h1 id="landing-title" class="reveal" style="--d: 1.1s">Cosmic Codex</h1>
+        <p class="landing-sub reveal" style="--d: 2s">A Voyage Through Reality</p>
+        <p class="landing-lede reveal" style="--d: 2.7s">The laws that shape galaxies, atoms, time — and the small universe of a human life.</p>
+        <button id="enter" class="enter reveal" style="--d: 3.5s" type="button">
+          <span class="enter-ring" aria-hidden="true"></span>
+          <span>Enter the Cosmos</span>
+        </button>
+        <div class="landing-options reveal" style="--d: 4.2s">
+          <button class="text-btn" type="button" data-action="toggle-sound" aria-pressed="true"><span class="sound-label">Sound on</span></button>
+          <span class="dot" aria-hidden="true">·</span>
+          <button class="text-btn" type="button" data-action="skip-to-map">Open the map</button>
+        </div>
+      </div>
+      <p class="landing-foot micro reveal" style="--d: 4.6s">Science and reflection, clearly separated · Headphones recommended</p>
+    </section>
+
+    <!-- ═════════ HUD ═════════ -->
+    <header id="hud" aria-label="Navigation">
+      <button class="brand" type="button" data-action="open-orrery" aria-label="Cosmic Codex — open the celestial map">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11" /><ellipse cx="16" cy="16" rx="14.5" ry="5" transform="rotate(-20 16 16)" /><circle cx="16" cy="16" r="1.6" class="fill" /></svg>
+        <span>Cosmic Codex</span>
+      </button>
+      <div class="hud-where" aria-live="polite"><span id="hud-num"></span><span id="hud-region"></span></div>
+      <nav class="hud-actions">
+        <button type="button" data-action="open-orrery" class="hud-btn" aria-keyshortcuts="M">Orrery</button>
+        <button type="button" data-action="open-constellation" class="hud-btn" aria-keyshortcuts="C">Constellation <span id="star-count" class="count">0</span></button>
+        <button type="button" data-action="toggle-sound" class="hud-btn" aria-pressed="true"><span class="sound-label">Sound on</span></button>
+      </nav>
+    </header>
+
+    <!-- ═════════ ARRIVAL TITLE ═════════ -->
+    <div id="arrival" aria-hidden="true">
+      <p class="micro" id="arrival-num"></p>
+      <p class="arrival-sci" id="arrival-sci"></p>
+      <h2 class="arrival-poetic" id="arrival-poetic"></h2>
+      <div class="arrival-ghosts" aria-hidden="true"></div>
+    </div>
+
+    <!-- ═════════ THE EDGE (The Unknown) ═════════ -->
+    <div id="edge" aria-live="polite">
+      <p class="edge-1"></p>
+      <p class="edge-2"></p>
+    </div>
+
+    <!-- ═════════ FOLIO: the chapter ═════════ -->
+    <aside id="folio" aria-label="Chapter" tabindex="-1">
+      <button class="folio-handle" type="button" aria-expanded="true" aria-controls="folio-body"><span></span><span class="sr">Toggle chapter text</span></button>
+      <div class="folio-tabs" role="tablist">
+        <button role="tab" id="tab-law" aria-controls="folio-law" aria-selected="true" type="button">The Law</button>
+        <button role="tab" id="tab-mirror" aria-controls="folio-mirror" aria-selected="false" type="button">The Human Mirror</button>
+      </div>
+      <div id="folio-body" class="folio-body">
+        <article id="folio-law" role="tabpanel" aria-labelledby="tab-law"></article>
+        <article id="folio-mirror" role="tabpanel" aria-labelledby="tab-mirror" hidden></article>
+      </div>
+      <button type="button" class="folio-collapse" data-action="toggle-folio" aria-label="Hide chapter text">›</button>
+    </aside>
+    <button type="button" id="folio-reopen" data-action="toggle-folio" aria-label="Show chapter text">Codex</button>
+
+    <!-- ═════════ INSTRUMENT: scene controls ═════════ -->
+    <div id="instrument" aria-label="Interactive model">
+      <p class="micro instrument-label">Instrument</p>
+      <p id="readout" aria-live="off"></p>
+      <div id="controls"></div>
+      <p class="hint micro">Drag to rotate · scroll to change distance · tap glowing points for notes</p>
+    </div>
+
+    <!-- ═════════ PROGRESS ═════════ -->
+    <nav id="progress" aria-label="Chapters">
+      <button type="button" class="step-btn" data-action="prev" aria-label="Previous chapter" aria-keyshortcuts="ArrowLeft">←</button>
+      <ol id="ticks"></ol>
+      <button type="button" class="step-btn" data-action="next" aria-label="Next chapter" aria-keyshortcuts="ArrowRight">→</button>
+    </nav>
+
+    <!-- ═════════ NOTES & TOOLTIP ═════════ -->
+    <div id="tooltip" role="tooltip"></div>
+    <div id="note" role="dialog" aria-modal="false" aria-labelledby="note-title">
+      <p class="micro">Scientific note</p>
+      <h3 id="note-title"></h3>
+      <p id="note-body"></p>
+      <button type="button" class="close" data-action="close-note" aria-label="Close note">×</button>
+    </div>
+
+    <!-- ═════════ ORRERY ═════════ -->
+    <section id="orrery" class="overlay" role="dialog" aria-modal="true" aria-labelledby="orrery-title" hidden>
+      <div class="overlay-head">
+        <p class="micro">Celestial navigation</p>
+        <h2 id="orrery-title">The Orrery</h2>
+        <p class="overlay-sub">Each orbit is a region of reality. Choose one to travel there.</p>
+      </div>
+      <div class="orrery-stage">
+        <svg id="orrery-svg" viewBox="-500 -500 1000 1000" role="group" aria-label="Orbits"></svg>
+        <div id="orrery-caption" aria-live="polite"></div>
+      </div>
+      <button type="button" class="close" data-action="close-overlay" aria-label="Close map (Escape)">×</button>
+    </section>
+
+    <!-- ═════════ CONSTELLATION ═════════ -->
+    <section id="constellation" class="overlay" role="dialog" aria-modal="true" aria-labelledby="const-title" hidden>
+      <div class="overlay-head">
+        <p class="micro">A reflection artifact — not a description of your personality</p>
+        <h2 id="const-title">Your Constellation</h2>
+        <p class="overlay-sub" id="const-sub"></p>
+      </div>
+      <div class="const-wrap">
+        <svg id="const-svg" viewBox="-500 -360 1000 720" role="img" aria-labelledby="const-title const-sub"></svg>
+        <ol id="const-list"></ol>
+      </div>
+      <div class="const-actions">
+        <button type="button" class="ghost-btn" data-action="download-constellation">Keep an image</button>
+        <button type="button" class="ghost-btn" data-action="clear-constellation">Clear stars</button>
+      </div>
+      <button type="button" class="close" data-action="close-overlay" aria-label="Close (Escape)">×</button>
+    </section>
+
+    <!-- ═════════ RETURN TO EARTH ═════════ -->
+    <section id="return" aria-hidden="true">
+      <div class="layer sky-layer"></div>
+      <div class="layer ocean-layer"><div class="horizon"></div><div class="swell"></div></div>
+      <canvas class="layer city-layer"></canvas>
+      <div class="layer human-layer">
+        <svg viewBox="0 0 100 220" class="silhouette" aria-hidden="true">
+          <path d="M50 18c7.5 0 12.5 5.6 12.5 13.2 0 7.9-5.3 14.3-12.5 14.3S37.5 39.1 37.5 31.2C37.5 23.6 42.5 18 50 18Zm-17 34c4.2-3.1 10.2-4.4 17-4.4s12.8 1.3 17 4.4c5.4 4 7.4 11 8.6 19.3l5.7 41.4c.6 4.2-1.9 7-5.4 7.3-3.2.3-5.4-1.8-6-5.6L64.6 79l-.3 37.6 1.9 92.8c.1 4.8-3 7.6-7 7.6-3.8 0-6.4-2.6-6.7-6.9L50 135.6l-2.5 74.5c-.3 4.3-2.9 6.9-6.7 6.9-4 0-7.1-2.8-7-7.6l1.9-92.8-.3-37.6-5.3 35.4c-.6 3.8-2.8 5.9-6 5.6-3.5-.3-6-3.1-5.4-7.3l5.7-41.4c1.2-8.3 3.2-15.3 8.6-19.3Z" />
+        </svg>
+      </div>
+      <p class="return-caption micro" aria-live="polite"></p>
+    </section>
+
+    <!-- ═════════ YOU ARE HERE ═════════ -->
+    <section id="here" aria-labelledby="here-title" hidden>
+      <div class="here-inner">
+        <figure class="pale-dot" hidden>
+          <img alt="Earth as a single pale blue pixel in a band of scattered sunlight, photographed by Voyager 1 from about 6 billion kilometres." />
+          <figcaption class="micro"></figcaption>
+        </figure>
+        <h2 id="here-title">You are here.</h2>
+        <p class="here-line">You travelled across the universe.</p>
+        <p class="here-line">You are still here.</p>
+        <p class="here-q">What will you do with what you learned?</p>
+        <div class="choices" role="group" aria-label="Choose a dimension"></div>
+        <div id="here-detail" aria-live="polite"></div>
+        <div class="here-actions">
+          <button type="button" class="ghost-btn" data-action="open-constellation">See your constellation</button>
+          <button type="button" class="ghost-btn" data-action="restart">Begin the voyage again</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═════════ NO-WEBGL / LITE NOTICE ═════════ -->
+    <p id="lite-note" class="micro" hidden></p>
+    <div id="sr-live" class="sr" aria-live="polite"></div>
+
+    <noscript>
+      <div style="padding:2rem;color:#efe6d2;font-family:serif;max-width:40rem;margin:auto">
+        <h1>Cosmic Codex</h1>
+        <p>This voyage needs JavaScript to run. The laws of the universe, unfortunately, do not.</p>
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
